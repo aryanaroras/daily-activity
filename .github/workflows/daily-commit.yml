@@ -10,14 +10,29 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          PATTERN=(1 2 3 4 5 5 4 3 2 1 1 2 3 4)
-          DAY_INDEX=$(( $(date +%j) % 14 ))
-          COUNT=${PATTERN[$DAY_INDEX]}
           git config user.name "Aryan Arora"
           git config user.email "aryanarora.aa11@gmail.com"
+
+          sleep $((RANDOM % 5400))
+
+          DOW=$(date +%u)
+          if [ "$DOW" -ge 6 ]; then
+            MAX=3
+          else
+            MAX=8
+          fi
+
+          if [ $((RANDOM % 100)) -lt 12 ]; then
+            echo "skip day, no commit"
+            exit 0
+          fi
+
+          COUNT=$(( (RANDOM % MAX) + 1 ))
+
           for i in $(seq 1 $COUNT); do
-            echo "$(date) - $i" >> activity.log
+            echo "$(date) - update $i" >> activity.log
             git add activity.log
-            git commit -m "chore: log $i/$COUNT"
+            git commit -m "chore: update $i"
           done
+
           git push
