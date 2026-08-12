@@ -14,7 +14,7 @@ jobs:
           DAY_INDEX=$(( $(date +%j) % 14 ))
           COUNT=${PATTERN[$DAY_INDEX]}
           git config user.name "Aryan Arora"
-          git config user.email "YOUR_GITHUB_EMAIL"
+          git config user.email "aryanarora.aa11@gmail.com"
           for i in $(seq 1 $COUNT); do
             echo "$(date) - $i" >> activity.log
             git add activity.log
